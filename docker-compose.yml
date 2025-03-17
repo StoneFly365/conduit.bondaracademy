@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  karate-tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: karate_tests_container
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - ~/.m2:/root/.m2
+    environment:
+      - TZ=Europe/Madrid
+    command: >
+      mvn clean test -Dkarate.options="--tags @smokeTest"
